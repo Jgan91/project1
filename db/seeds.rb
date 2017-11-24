@@ -1,7 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Language.destroy_all
+l1 = Language.create :name => 'English', :num_native_speaker => 400000000
+l2 = Language.create :name => 'Japanese', :region => 'Japan', :num_native_speaker => 125000000
+l3 = Language.create :name => 'French', :region => 'France', :num_native_speaker => 150000000
+
+WritingSystem.destroy_all
+w1 = WritingSystem.create :name => 'Katakana', :time_period => '~800 AD to the present'
+w2 = WritingSystem.create :name => 'Hiragana', :time_period => '~800 AD to the present'
+w3 = WritingSystem.create :name => 'Kanji', :time_period => '~57 AD to the present'
+w4 = WritingSystem.create :name => 'Latin', :time_period => '~700 BC-present'
+
+LanguageFamily.destroy_all
+f1 = LanguageFamily.create :name => 'Oil'
+f2 = LanguageFamily.create :name => 'Japonic'
+f3 = LanguageFamily.create :name => 'Anglic'
+
+Country.destroy_all
+c1 = Country.create :name => 'Australia'
+c2 = Country.create :name => 'England'
+c3 = Country.create :name => 'France'
+c4 = Country.create :name => 'Japan'
