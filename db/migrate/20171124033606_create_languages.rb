@@ -4,6 +4,7 @@ class CreateLanguages < ActiveRecord::Migration[5.1]
       t.text :name
       t.text :region
       t.integer :num_native_speaker
+      t.integer :language_family_id
 
       t.timestamps
     end
