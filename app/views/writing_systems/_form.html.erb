@@ -1,0 +1,11 @@
+<%= form_for @writing_system do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :sample %>
+  <%= f.text_field :sample %>
+  <%= f.label :time_period %>
+  <%= f.text_field :time_period %>
+  <%= f.label :child_systems %>
+  <%= f.text_field :child_systems %>
+  <%= f.submit %>
+<% end %>

@@ -1,2 +1,7 @@
-<h1>LanguageFamilies#new</h1>
-<p>Find me in app/views/language_families/new.html.erb</p>
+<h1>Add Language Family</h1>
+
+<% if @language_family.errors.any? %>
+
+<% end %>
+
+<%= render :partial => 'form' %>

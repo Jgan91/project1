@@ -1,2 +1,5 @@
-<h1>WritingSystems#index</h1>
-<p>Find me in app/views/writing_systems/index.html.erb</p>
+<h1>Writing Systems</h1>
+
+<% @writing_systems.each do |writing_systems| %>
+  <p><%= link_to writing_systems.name, writing_systems %></p>
+<% end %>

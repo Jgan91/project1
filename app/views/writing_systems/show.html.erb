@@ -1,2 +1,8 @@
-<h1>WritingSystems#show</h1>
-<p>Find me in app/views/writing_systems/show.html.erb</p>
+<h1><%= @writing_system.name %></h1>
+
+<p><%= @writing_system.sample %></p>
+<p><%= @writing_system.time_period %></p>
+<p><%= @writing_system.child_systems %></p>
+
+<%= link_to 'Edit Writing System', edit_writing_system_path %>
+<%= button_to('Delete Writing System', @writing_system, :method => 'delete') %>

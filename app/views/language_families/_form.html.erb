@@ -1,0 +1,9 @@
+<%= form_for @language_family do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :geographic_distribution %>
+  <%= f.text_field :geographic_distribution %>
+  <%= f.label :proto_language %>
+  <%= f.text_field :proto_language %>
+  <%= f.submit %>
+<% end %>

@@ -1,2 +1,7 @@
-<h1>Countries#new</h1>
-<p>Find me in app/views/countries/new.html.erb</p>
+<h1>Add Country</h1>
+
+<% if @country.errors.any? %>
+
+<% end %>
+
+<%= render :partial => 'form' %>

@@ -1,2 +1,7 @@
-<h1>WritingSystems#new</h1>
-<p>Find me in app/views/writing_systems/new.html.erb</p>
+<h1>Add Writing System</h1>
+
+<% if @writing_system.errors.any? %>
+
+<% end %>
+
+<%= render :partial => 'form' %>

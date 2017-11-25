@@ -1,2 +1,5 @@
-<h1>LanguageFamilies#index</h1>
-<p>Find me in app/views/language_families/index.html.erb</p>
+<h1>Language Families</h1>
+
+<% @language_families.each do |language_family| %>
+  <p><%= link_to language_family.name, language_family %></p>
+<% end %>

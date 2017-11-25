@@ -35,4 +35,9 @@ class CountriesController < ApplicationController
     country.destroy
     redirect_to countries_path
   end
+
+  private
+  def country_params
+    params.require(:country).permit(:name)
+  end
 end

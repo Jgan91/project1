@@ -35,4 +35,9 @@ class LanguageFamiliesController < ApplicationController
     language_family.destroy
     redirect_to language_families_path
   end
+
+  private
+  def language_family_params
+    params.require(:language_family).permit(:name, :geographic_distribution, :proto_language)
+  end
 end
