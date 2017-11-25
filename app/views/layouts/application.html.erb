@@ -6,37 +6,26 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?sensor=false' %>
   </head>
 
   <body>
 
-    <nav>
-      <%= link_to 'Home', root_path %>
-      <%= link_to 'Languages', languages_path %>
-      <%= link_to 'Add Language', new_language_path %>
-      <%= link_to 'Countries', countries_path %>
-      <%= link_to 'Add Countries', new_country_path %>
-      <%= link_to 'Writing Systems', writing_systems_path %>
-      <%= link_to 'Add Writing Systems', new_writing_system_path %>
-      <%= link_to 'Language Families', language_families_path %>
-      <%= link_to 'Add Language Family', new_language_family_path %>
-    </nav>
-    <%= yield %>
+    <div id="container">
 
-    <script>
-    var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      });
-    }
-    </script>
+      <nav>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Languages', languages_path %>
+        <%= link_to 'Add Language', new_language_path %>
+        <%= link_to 'Countries', countries_path %>
+        <%= link_to 'Add Countries', new_country_path %>
+        <%= link_to 'Writing Systems', writing_systems_path %>
+        <%= link_to 'Add Writing Systems', new_writing_system_path %>
+        <%= link_to 'Language Families', language_families_path %>
+        <%= link_to 'Add Language Family', new_language_family_path %>
+      </nav>
+      <%= yield %>
 
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtVPmHYmRqZGxyKnywW4Eh-G-P01SENew&callback=initMap">
-    </script>
+    </div>
 
   </body>
 </html>
