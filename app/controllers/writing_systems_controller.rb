@@ -8,7 +8,7 @@ class WritingSystemsController < ApplicationController
   end
 
   def create
-    @writing_system = WritingSystem.new country_params
+    @writing_system = WritingSystem.new writing_system_params
     if @writing_system.save
       redirect_to @writing_system
     else
@@ -22,7 +22,7 @@ class WritingSystemsController < ApplicationController
 
   def update
     writing_system = WritingSystem.find params[:id]
-    writing_system.update country_params
+    writing_system.update writing_system_params
     redirect_to writing_systems_path
   end
 

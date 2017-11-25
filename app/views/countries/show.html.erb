@@ -1,4 +1,4 @@
 <h1><%= @country.name %></h1>
 
 <%= link_to 'Edit Country', edit_country_path %>
-<%= button_to('Delete Country', @country, :method => 'delete') %>
+<%= button_to('Delete Country', @country, :method => 'delete', :data => { :confirm => 'Are you sure?' }) %>

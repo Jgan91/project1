@@ -5,4 +5,4 @@
 <p><%= @writing_system.child_systems %></p>
 
 <%= link_to 'Edit Writing System', edit_writing_system_path %>
-<%= button_to('Delete Writing System', @writing_system, :method => 'delete') %>
+<%= button_to('Delete Writing System', @writing_system, :method => 'delete', :data => { :confirm => 'Are you sure?' }) %>

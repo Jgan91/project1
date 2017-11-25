@@ -3,4 +3,4 @@
 <%=  %>
 
 <%= link_to 'Edit Language Family', edit_language_family_path %>
-<%= button_to('Delete Language Family', @language_family, :method => 'delete') %>
+<%= button_to('Delete Language Family', @language_family, :method => 'delete', :data => { :confirm => 'Are you sure?' }) %>

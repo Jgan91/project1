@@ -8,7 +8,7 @@ class LanguageFamiliesController < ApplicationController
   end
 
   def create
-    @language_family = LanguageFamily.new country_params
+    @language_family = LanguageFamily.new language_family_params
     if @language_family.save
       redirect_to @language_family
     else
@@ -22,7 +22,7 @@ class LanguageFamiliesController < ApplicationController
 
   def update
     language_family = LanguageFamily.find params[:id]
-    language_family.update country_params
+    language_family.update language_family_params
     redirect_to language_families_path
   end
 
