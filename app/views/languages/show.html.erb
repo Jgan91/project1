@@ -1,0 +1,7 @@
+<h1><%= @language.name %></h1>
+
+<p>Native to: <%= @language.region %></p>
+<p>Number of native speakers: <%= @language.num_native_speaker %></p>
+
+<%= link_to 'Edit Language', edit_language_path %>
+<%= button_to('Delete Language', @language, :method => 'delete') %>

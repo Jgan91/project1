@@ -11,7 +11,7 @@
 #
 
 class Language < ApplicationRecord
-  belongs_to :language_family
+  belongs_to :language_family, :optional => true
   has_and_belongs_to_many :writing_systems
   has_and_belongs_to_many :countries
 end
