@@ -4,6 +4,10 @@
 
 <script>
   // TODO: change vanilla javascript to jQuery
+  let countries = <%= @countries_json.html_safe %>
+
+  console.log( countries );
+
   let map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -58,15 +62,24 @@
           this.setOptions({fillOpacity: 0});
         });
         google.maps.event.addListener(country, 'click', function( event ) {
-          alert(this.name);
+
+          const clickedCountry = this.name;
+
+          let createdAt = '';
+          for ( let i in countries ) {
+            const country = countries[i];
+            if ( country['name'] === clickedCountry ) {
+              console.log( country );
+              createdAt = country['created_at']
+            }
+          }
+
           const polygonBounds = this.getPath();
           const coordinates = [];
 
           for ( let i = 0; i < polygonBounds.length; i++ ) {
             coordinates.push(polygonBounds.getAt(i).lat(), polygonBounds.getAt(i).lng());
           }
-          console.log( coordinates );
-
 
           // TODO: Is there a way to filter into 2 arrays concurrently
           const latitudes = coordinates.filter( function ( coordinate, index ) {
@@ -74,26 +87,20 @@
               return coordinate;
             }
           });
-          console.log( latitudes );
 
           const northmostLatitude = Math.max( ...latitudes );
-          console.log( northmostLatitude );
 
           const longitudes = coordinates.filter( function ( coordinate, index ) {
             if ( index % 2 !== 0 ) {
               return coordinate;
             }
           });
-          console.log( longitudes );
 
           const eastmostLongitude = Math.max( ...longitudes );
-          console.log( eastmostLongitude );
-
 
           const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
-          console.log( northwestBound );
-          const country = this.name;
-          const content = country;
+
+          const content = clickedCountry + createdAt;
 
 
           // Set the info window's content and position.
@@ -117,17 +124,6 @@
     return newCoordinates;
   }
 
-  function openInfoWindow(event) {
-    const ne = rectangle.getBounds().getNorthEast();
-    const sw = rectangle.getBounds().getSouthWest();
-
-    const content = 'Infowindow content';
-
-    // Set the info window's content and position.
-    infoWindow.setContent(contentString);
-    infoWindow.setPosition(ne);
-    infoWindow.open(map);
-}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABDM6jpfKy3YA3F25pB0zMUg6QBNCk-0A&callback=initMap"
 async defer></script>
