@@ -10,4 +10,12 @@
 
 class Country < ApplicationRecord
   has_and_belongs_to_many :languages
+
+  def self.nice_json
+    languages = {}
+    self.all.each do |country|
+      languages[ country.name ] = country.languages
+    end
+    languages.to_json
+  end
 end

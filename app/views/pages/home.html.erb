@@ -1,1 +1,129 @@
 <h1>Home</h1>
+
+<div id="map"></div>
+
+<script>
+  // TODO: change vanilla javascript to jQuery
+  let countries = <%= @countries_json.html_safe %>
+
+  console.log( countries );
+
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 30, lng: 20},
+      zoom: 2
+    });
+  }
+
+  // Initialize JSONP request
+  const script = document.createElement('script');
+  const url = ['https://www.googleapis.com/fusiontables/v1/query?'];
+  url.push('sql=');
+  const query = 'SELECT name, kml_4326 FROM ' +
+      '1foc3xO9DyfSIF6ofvN0kp2bxSfSeKog5FbdWdQ';
+  const encodedQuery = encodeURIComponent(query);
+  url.push(encodedQuery);
+  url.push('&callback=drawMap');
+  url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
+  script.src = url.join('');
+  const body = document.getElementsByTagName('body')[0];
+  body.appendChild(script);
+
+  function drawMap(data) {
+    const infoWindow = new google.maps.InfoWindow;
+
+    const rows = data['rows'];
+    for (let i in rows) {
+      if (rows[i][0] != 'Antarctica') {
+        let newCoordinates = [];
+        const geometries = rows[i][1]['geometries'];
+        if (geometries) {
+          for (let j in geometries) {
+            newCoordinates.push(constructNewCoordinates(geometries[j]));
+          }
+        } else {
+          newCoordinates = constructNewCoordinates(rows[i][1]['geometry']);
+        }
+        const country = new google.maps.Polygon({
+          paths: newCoordinates,
+          strokeColor: '#ff9900',
+          strokeOpacity: 1,
+          strokeWeight: 0.3,
+          fillColor: '#ffff66',
+          fillOpacity: 0,
+          name: rows[i][0]
+        });
+
+        google.maps.event.addListener(country, 'mouseover', function() {
+          this.setOptions({fillOpacity: 0.4});
+        });
+        google.maps.event.addListener(country, 'mouseout', function() {
+          this.setOptions({fillOpacity: 0});
+        });
+        google.maps.event.addListener(country, 'click', function( event ) {
+
+          const clickedCountry = this.name;
+
+          let createdAt = '';
+          for ( let i in countries ) {
+            const country = countries[i];
+            if ( country['name'] === clickedCountry ) {
+              console.log( country );
+              createdAt = country['created_at']
+            }
+          }
+
+          const polygonBounds = this.getPath();
+          const coordinates = [];
+
+          for ( let i = 0; i < polygonBounds.length; i++ ) {
+            coordinates.push(polygonBounds.getAt(i).lat(), polygonBounds.getAt(i).lng());
+          }
+
+          // TODO: Is there a way to filter into 2 arrays concurrently
+          const latitudes = coordinates.filter( function ( coordinate, index ) {
+            if ( index % 2 === 0 ) {
+              return coordinate;
+            }
+          });
+
+          const northmostLatitude = Math.max( ...latitudes );
+
+          const longitudes = coordinates.filter( function ( coordinate, index ) {
+            if ( index % 2 !== 0 ) {
+              return coordinate;
+            }
+          });
+
+          const eastmostLongitude = Math.max( ...longitudes );
+
+          const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
+
+          const content = clickedCountry + createdAt;
+
+
+          // Set the info window's content and position.
+          infoWindow.setContent(content);
+          infoWindow.setPosition( northwestBound );
+          infoWindow.open(map);
+        });
+
+        country.setMap(map);
+      }
+    }
+  }
+
+  function constructNewCoordinates(polygon) {
+    let newCoordinates = [];
+    const coordinates = polygon['coordinates'][0];
+    for (let i in coordinates) {
+      newCoordinates.push(
+          new google.maps.LatLng(coordinates[i][1], coordinates[i][0]));
+    }
+    return newCoordinates;
+  }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABDM6jpfKy3YA3F25pB0zMUg6QBNCk-0A&callback=initMap"
+async defer></script>
