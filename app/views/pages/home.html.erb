@@ -3,7 +3,8 @@
 <div id="map"></div>
 
 <script>
-  var map;
+  // TODO: change vanilla javascript to jQuery
+  let map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 30, lng: 20},
@@ -12,34 +13,35 @@
   }
 
   // Initialize JSONP request
-  var script = document.createElement('script');
-  var url = ['https://www.googleapis.com/fusiontables/v1/query?'];
+  const script = document.createElement('script');
+  const url = ['https://www.googleapis.com/fusiontables/v1/query?'];
   url.push('sql=');
-  var query = 'SELECT name, kml_4326 FROM ' +
+  const query = 'SELECT name, kml_4326 FROM ' +
       '1foc3xO9DyfSIF6ofvN0kp2bxSfSeKog5FbdWdQ';
-  var encodedQuery = encodeURIComponent(query);
+  const encodedQuery = encodeURIComponent(query);
   url.push(encodedQuery);
   url.push('&callback=drawMap');
   url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
   script.src = url.join('');
-  var body = document.getElementsByTagName('body')[0];
-  console.log(body);
+  const body = document.getElementsByTagName('body')[0];
   body.appendChild(script);
 
   function drawMap(data) {
-    var rows = data['rows'];
-    for (var i in rows) {
+    const infoWindow = new google.maps.InfoWindow;
+
+    const rows = data['rows'];
+    for (let i in rows) {
       if (rows[i][0] != 'Antarctica') {
-        var newCoordinates = [];
-        var geometries = rows[i][1]['geometries'];
+        let newCoordinates = [];
+        const geometries = rows[i][1]['geometries'];
         if (geometries) {
-          for (var j in geometries) {
+          for (let j in geometries) {
             newCoordinates.push(constructNewCoordinates(geometries[j]));
           }
         } else {
           newCoordinates = constructNewCoordinates(rows[i][1]['geometry']);
         }
-        var country = new google.maps.Polygon({
+        const country = new google.maps.Polygon({
           paths: newCoordinates,
           strokeColor: '#ff9900',
           strokeOpacity: 1,
@@ -48,14 +50,56 @@
           fillOpacity: 0,
           name: rows[i][0]
         });
+
         google.maps.event.addListener(country, 'mouseover', function() {
           this.setOptions({fillOpacity: 0.4});
         });
         google.maps.event.addListener(country, 'mouseout', function() {
           this.setOptions({fillOpacity: 0});
         });
-        google.maps.event.addListener(country, 'click', function() {
+        google.maps.event.addListener(country, 'click', function( event ) {
           alert(this.name);
+          const polygonBounds = this.getPath();
+          const coordinates = [];
+
+          for ( let i = 0; i < polygonBounds.length; i++ ) {
+            coordinates.push(polygonBounds.getAt(i).lat(), polygonBounds.getAt(i).lng());
+          }
+          console.log( coordinates );
+
+
+          // TODO: Is there a way to filter into 2 arrays concurrently
+          const latitudes = coordinates.filter( function ( coordinate, index ) {
+            if ( index % 2 === 0 ) {
+              return coordinate;
+            }
+          });
+          console.log( latitudes );
+
+          const northmostLatitude = Math.max( ...latitudes );
+          console.log( northmostLatitude );
+
+          const longitudes = coordinates.filter( function ( coordinate, index ) {
+            if ( index % 2 !== 0 ) {
+              return coordinate;
+            }
+          });
+          console.log( longitudes );
+
+          const eastmostLongitude = Math.max( ...longitudes );
+          console.log( eastmostLongitude );
+
+
+          const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
+          console.log( northwestBound );
+          const country = this.name;
+          const content = country;
+
+
+          // Set the info window's content and position.
+          infoWindow.setContent(content);
+          infoWindow.setPosition( northwestBound );
+          infoWindow.open(map);
         });
 
         country.setMap(map);
@@ -64,15 +108,26 @@
   }
 
   function constructNewCoordinates(polygon) {
-    var newCoordinates = [];
-    var coordinates = polygon['coordinates'][0];
-    for (var i in coordinates) {
+    let newCoordinates = [];
+    const coordinates = polygon['coordinates'][0];
+    for (let i in coordinates) {
       newCoordinates.push(
           new google.maps.LatLng(coordinates[i][1], coordinates[i][0]));
     }
     return newCoordinates;
   }
 
+  function openInfoWindow(event) {
+    const ne = rectangle.getBounds().getNorthEast();
+    const sw = rectangle.getBounds().getSouthWest();
+
+    const content = 'Infowindow content';
+
+    // Set the info window's content and position.
+    infoWindow.setContent(contentString);
+    infoWindow.setPosition(ne);
+    infoWindow.open(map);
+}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABDM6jpfKy3YA3F25pB0zMUg6QBNCk-0A&callback=initMap"
 async defer></script>
