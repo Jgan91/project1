@@ -4,7 +4,7 @@
 
 <script>
   // TODO: change vanilla javascript to jQuery
-  let countries = <%= @countries_json.html_safe %>
+  let countries = <%= @countries.html_safe %>
 
   console.log( countries );
 
@@ -63,17 +63,6 @@
         });
         google.maps.event.addListener(country, 'click', function( event ) {
 
-          const clickedCountry = this.name;
-
-          let createdAt = '';
-          for ( let i in countries ) {
-            const country = countries[i];
-            if ( country['name'] === clickedCountry ) {
-              console.log( country );
-              createdAt = country['created_at']
-            }
-          }
-
           const polygonBounds = this.getPath();
           const coordinates = [];
 
@@ -100,8 +89,26 @@
 
           const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
 
-          const content = clickedCountry + createdAt;
+          const clickedCountry = this.name;
+          let content = clickedCountry;
 
+          if ( countries[ clickedCountry ] ) {
+            const clickedCountryInfo = countries[ clickedCountry ];
+            const clickedCountryLanguages = clickedCountryInfo.map( function (language) {
+              return { language: language['name'], id: language['id'] };
+            });
+            console.log( clickedCountryInfo );
+
+            console.log( clickedCountryLanguages );
+            for ( let i in clickedCountryLanguages ) {
+              const language = clickedCountryLanguages[i]['language'];
+              const id = clickedCountryLanguages[i]['id'];
+              content += `<a class="map language" href="/languages/${ id }">` + language + '</a>';
+            }
+          }
+          else {
+            content += `<a class="map language" href="/languages/new">Add language</a>`;
+          }
 
           // Set the info window's content and position.
           infoWindow.setContent(content);

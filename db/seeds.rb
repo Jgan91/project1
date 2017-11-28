@@ -1,34 +1,39 @@
 Language.destroy_all
-l1 = Language.create :name => 'English', :num_native_speaker => 400000000
-l2 = Language.create :name => 'Japanese', :region => 'Japan', :num_native_speaker => 125000000
-l3 = Language.create :name => 'French', :region => 'France', :num_native_speaker => 150000000
+english = Language.create :name => 'English', :num_native_speaker => 400000000
+japanese = Language.create :name => 'Japanese', :region => 'Japan', :num_native_speaker => 125000000
+french = Language.create :name => 'French', :region => 'France', :num_native_speaker => 150000000
+german = Language.create :name => 'German'
+italian = Language.create :name => 'Italian'
+romansh = Language.create :name => 'Romansh'
 
 LanguageFamily.destroy_all
-f1 = LanguageFamily.create :name => 'Oil'
-f2 = LanguageFamily.create :name => 'Japonic'
-f3 = LanguageFamily.create :name => 'Anglic'
+oil = LanguageFamily.create :name => 'Oil'
+japonic = LanguageFamily.create :name => 'Japonic'
+anglic = LanguageFamily.create :name => 'Anglic'
 
 WritingSystem.destroy_all
-w1 = WritingSystem.create :name => 'Katakana', :time_period => '~800 AD to the present'
-w2 = WritingSystem.create :name => 'Hiragana', :time_period => '~800 AD to the present'
-w3 = WritingSystem.create :name => 'Kanji', :time_period => '~57 AD to the present'
-w4 = WritingSystem.create :name => 'Latin', :time_period => '~700 BC-present'
+katakana = WritingSystem.create :name => 'Katakana', :time_period => '~800 AD to the present'
+hiragana = WritingSystem.create :name => 'Hiragana', :time_period => '~800 AD to the present'
+kanji = WritingSystem.create :name => 'Kanji', :time_period => '~57 AD to the present'
+latin = WritingSystem.create :name => 'Latin', :time_period => '~700 BC-present'
 
 Country.destroy_all
-c1 = Country.create :name => 'Australia'
-c2 = Country.create :name => 'England'
-c3 = Country.create :name => 'France'
-c4 = Country.create :name => 'Japan'
+australia = Country.create :name => 'Australia'
+england = Country.create :name => 'England'
+france = Country.create :name => 'France'
+japan = Country.create :name => 'Japan'
+canada = Country.create :name => 'Canada'
+switzerland = Country.create :name => 'Switzerland'
 
-l1.writing_systems << w4
-l2.writing_systems << w1 << w2 << w3
-l3.writing_systems << w4
+english.writing_systems << latin
+japanese.writing_systems << katakana << hiragana << kanji
+french.writing_systems << latin
 
-f1.languages << l3
-f2.languages << l2
-f3.languages << l1
+oil.languages << french
+japonic.languages << japanese
+anglic.languages << english
 
-c1.languages << l1
-c2.languages << l1
-c3.languages << l2
-c4.languages << l3
+australia.languages << english
+england.languages << english
+france.languages << french
+japan.languages << japanese
