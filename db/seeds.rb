@@ -1,10 +1,10 @@
 Language.destroy_all
-english = Language.create :name => 'English', :num_native_speaker => 400000000
-japanese = Language.create :name => 'Japanese', :region => 'Japan', :num_native_speaker => 125000000
-french = Language.create :name => 'French', :region => 'France', :num_native_speaker => 150000000
-german = Language.create :name => 'German'
-italian = Language.create :name => 'Italian'
-romansh = Language.create :name => 'Romansh'
+english = Language.create :name => 'English', :num_native_speaker => 400000000, :sample => 'All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.'
+japanese = Language.create :name => 'Japanese', :region => 'Japan', :num_native_speaker => 125000000, :sample => 'すべての人間は、生まれながらにして自由であり、かつ、尊厳と権利とについて平等である。人間は、理性と良心を授けられてあり、互いに同胞の精神をもって行動しなければならない。'
+french = Language.create :name => 'French', :region => 'France', :num_native_speaker => 150000000, :sample => 'Tous les êtres humains naissent libres et égaux en dignité et en droits. Ils sont doués de raison et de conscience et doivent agir les uns envers les autres dans un esprit de fraternité.'
+german = Language.create :name => 'German', :sample => 'Alle Menschen sind frei und gleich an Würde und Rechten geboren. Sie sind mit Vernunft und Gewissen begabt und sollen einander im Geist der Brüderlichkeit begegnen.'
+italian = Language.create :name => 'Italian', :sample => 'Tutti gli esseri umani nascono liberi ed eguali in dignità e diritti. Essi sono dotati di ragione e di coscienza e devono agire gli uni verso gli altri in spirito di fratellanza.'
+romansh = Language.create :name => 'Romansh', :sample => 'Tuots umans naschan libers ed eguals in dignità e drets. Els sun dotats cun intellet e conscienza e dessan agir tanter per in uin spiert da fraternità.'
 
 LanguageFamily.destroy_all
 oil = LanguageFamily.create :name => 'Oil'
