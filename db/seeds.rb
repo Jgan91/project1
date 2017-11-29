@@ -37,3 +37,5 @@ australia.languages << english
 england.languages << english
 france.languages << french
 japan.languages << japanese
+canada.languages << english << french
+switzerland.languages << french << german << romansh << italian

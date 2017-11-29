@@ -1,5 +1,19 @@
 <h1><%= @language.name %></h1>
 
+<div>
+  <h2>Universal Declaration of human rights in <%= @language.name %>:</h2>
+  <%= @language.sample %>
+</div>
+
+<% @language.countries.each do |country| %>
+  <figure>
+    <img src="http://fillmurray.com/200/100">
+    <figcaption>
+      <%= link_to country.name, country %>        
+    </figcaption>
+  </figure>
+<% end %>
+
 <p>Native to: <%= @language.region %></p>
 <p>Number of native speakers: <%= @language.num_native_speaker %></p>
 

@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171124045923) do
     t.text "region"
     t.integer "num_native_speaker"
     t.integer "language_family_id"
+    t.text "sample"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
