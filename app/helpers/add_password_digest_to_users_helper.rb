@@ -1,0 +1,2 @@
+module AddPasswordDigestToUsersHelper
+end
