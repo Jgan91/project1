@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(version: 20171124045923) do
   create_table "language_families", force: :cascade do |t|
     t.text "name"
     t.string "geographic_distribution"
-    t.text "proto_language"
+    t.bigint "proto_language_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["proto_language_id"], name: "index_language_families_on_proto_language_id"
   end
 
   create_table "languages", force: :cascade do |t|

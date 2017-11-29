@@ -6,6 +6,8 @@
 #  name               :text
 #  region             :text
 #  num_native_speaker :integer
+#  language_family_id :integer
+#  sample             :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #

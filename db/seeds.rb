@@ -10,6 +10,11 @@ LanguageFamily.destroy_all
 oil = LanguageFamily.create :name => 'Oil'
 japonic = LanguageFamily.create :name => 'Japonic'
 anglic = LanguageFamily.create :name => 'Anglic'
+anglo_frisian = LanguageFamily.create :name => 'Anglo-Frisian'
+west_germanic = LanguageFamily.create :name => 'West Germanic'
+germanic = LanguageFamily.create :name => 'Germanic'
+indo_european = LanguageFamily.create :name => 'Indo-European'
+proto_indo_european = LanguageFamily.create :name => 'Proto-Indo-European'
 
 WritingSystem.destroy_all
 katakana = WritingSystem.create :name => 'Katakana', :time_period => '~800 AD to the present'
@@ -39,3 +44,9 @@ france.languages << french
 japan.languages << japanese
 canada.languages << english << french
 switzerland.languages << french << german << romansh << italian
+
+proto_indo_european.child_languages << indo_european
+indo_european.child_languages << germanic
+germanic.child_languages << west_germanic
+west_germanic.child_languages << anglo_frisian
+anglo_frisian.child_languages << anglic
