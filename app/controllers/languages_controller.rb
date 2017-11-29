@@ -28,12 +28,30 @@ class LanguagesController < ApplicationController
 
   def show
     @language = Language.find params[:id]
+    @family_tree = []
+
+    ancestor = @language.language_family
+    until ancestor.nil?
+      @family_tree << ancestor
+      ancestor = ancestor.proto_language
+    end
+
+    @family_tree_names = @family_tree.map { |f| f.name }
+
+    @nested_list = make_nested_list( @family_tree_names, '', @family_tree_names.length )
   end
 
   def destroy
     language = Language.find params[:id]
     language.destroy
     redirect_to languages_path
+  end
+
+  def make_nested_list( array, str, length )
+    str += "<ul>"
+    str += "<li>" + array[length - 1] + "</li>"
+    str = make_nested_list( array, str, length - 1 ) unless length == 1
+    str += "</ul>"
   end
 
   private

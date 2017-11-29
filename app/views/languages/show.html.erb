@@ -5,6 +5,8 @@
   <%= @language.sample %>
 </div>
 
+<%= @nested_list.html_safe %>
+
 <% @language.countries.each do |country| %>
   <figure>
     <img src="http://fillmurray.com/200/100">
