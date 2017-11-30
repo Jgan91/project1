@@ -3,12 +3,12 @@ function drawMap(data) {
   const infoWindow = new google.maps.InfoWindow;
 
   const rows = data['rows'];
-  for (let i in rows) {
+  for (var i in rows) {
     if (rows[i][0] != 'Antarctica') {
-      let newCoordinates = [];
+      var newCoordinates = [];
       const geometries = rows[i][1]['geometries'];
       if (geometries) {
-        for (let j in geometries) {
+        for (var j in geometries) {
           newCoordinates.push(constructNewCoordinates(geometries[j]));
         }
       } else {
@@ -35,7 +35,7 @@ function drawMap(data) {
         const polygonBounds = this.getPath();
         const coordinates = [];
 
-        for ( let i = 0; i < polygonBounds.length; i++ ) {
+        for ( var i = 0; i < polygonBounds.length; i++ ) {
           coordinates.push(polygonBounds.getAt(i).lat(), polygonBounds.getAt(i).lng());
         }
 
@@ -59,7 +59,7 @@ function drawMap(data) {
         const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
 
         const clickedCountry = this.name;
-        let content = `<h3>${ clickedCountry }</h3>`;
+        var content = `<h3>${ clickedCountry }</h3>`;
 
         // TODO: don't display more than 5 languages
         if ( countries[ clickedCountry ] ) {
@@ -70,7 +70,7 @@ function drawMap(data) {
           console.log( clickedCountryInfo );
 
           console.log( clickedCountryLanguages );
-          for ( let i in clickedCountryLanguages ) {
+          for ( var i in clickedCountryLanguages ) {
             const language = clickedCountryLanguages[i]['language'];
             const id = clickedCountryLanguages[i]['id'];
             content += `<a class="map language" href="/languages/${ id }">` + language + '</a>';
@@ -96,9 +96,9 @@ function drawMap(data) {
 }
 
 function constructNewCoordinates(polygon) {
-  let newCoordinates = [];
+  var newCoordinates = [];
   const coordinates = polygon['coordinates'][0];
-  for (let i in coordinates) {
+  for (var i in coordinates) {
     newCoordinates.push(
         new google.maps.LatLng(coordinates[i][1], coordinates[i][0]));
   }
