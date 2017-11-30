@@ -13,15 +13,24 @@
     <div id="container">
 
       <nav>
+
+        <%= flash[:error] %>
+
         <%= link_to 'Home', root_path %>
         <%= link_to 'Languages', languages_path %>
-        <%= link_to 'Add Language', new_language_path %>
         <%= link_to 'Countries', countries_path %>
-        <%= link_to 'Add Countries', new_country_path %>
         <%= link_to 'Writing Systems', writing_systems_path %>
-        <%= link_to 'Add Writing Systems', new_writing_system_path %>
         <%= link_to 'Language Families', language_families_path %>
-        <%= link_to 'Add Language Family', new_language_family_path %>
+        <% if @current_user.present? %>
+          <%= link_to 'Sign Out', login_path, :method => 'delete' %>
+          <% if @current_user.admin? %>
+            <%= link_to 'Admin', new_user_path %>
+            <%= link_to 'Add Language', new_language_path %>
+            <%= link_to 'Add Countries', new_country_path %>
+            <%= link_to 'Add Writing Systems', new_writing_system_path %>
+            <%= link_to 'Add Language Family', new_language_family_path %>
+          <% end %>
+        <% end %>
       </nav>
       <%= yield %>
 

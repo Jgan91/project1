@@ -5,7 +5,7 @@
   <%= @language.sample %>
 </div>
 
-<%= @nested_list.html_safe %>
+<%= @nested_list.html_safe unless @nested_list.nil? %>
 
 <% @language.countries.each do |country| %>
   <figure>

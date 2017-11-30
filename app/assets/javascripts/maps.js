@@ -1,3 +1,4 @@
+
 function drawMap(data) {
   const infoWindow = new google.maps.InfoWindow;
 
@@ -60,6 +61,7 @@ function drawMap(data) {
         const clickedCountry = this.name;
         let content = clickedCountry;
 
+        // TODO: don't display more than 5 languages
         if ( countries[ clickedCountry ] ) {
           const clickedCountryInfo = countries[ clickedCountry ];
           const clickedCountryLanguages = clickedCountryInfo.map( function (language) {
@@ -75,7 +77,11 @@ function drawMap(data) {
           }
         }
         else {
-          content += `<a class="map language" href="/languages/new">Add language</a>`;
+          if ( currentUserPresent ) {
+            content += `<a class="map language" href="/languages/new">Add language</a>`;
+          } else {
+            content += `<p>Request this country's language to be added to the database</p>`;
+          }
         }
 
         // Set the info window's content and position.

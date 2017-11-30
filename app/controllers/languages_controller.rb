@@ -38,7 +38,7 @@ class LanguagesController < ApplicationController
 
     @family_tree_names = @family_tree.map { |f| f.name }
 
-    @nested_list = make_nested_list( @family_tree_names, '', @family_tree_names.length )
+    @nested_list = make_nested_list( @family_tree_names, '', @family_tree_names.length ) unless @family_tree_names.empty?
   end
 
   def destroy
