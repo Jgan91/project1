@@ -46,7 +46,8 @@ function drawMap(data) {
           }
         });
 
-        const northmostLatitude = Math.max( ...latitudes );
+        const northmostLatitude = Math.max.apply( null, latitudes );
+        // const northmostLatitude = Math.max( ...latitudes );
 
         const longitudes = coordinates.filter( function ( coordinate, index ) {
           if ( index % 2 !== 0 ) {
@@ -54,7 +55,8 @@ function drawMap(data) {
           }
         });
 
-        const eastmostLongitude = Math.max( ...longitudes );
+        const eastmostLongitude = Math.max.apply( null, longitudes );
+        // const eastmostLongitude = Math.max( ...longitudes );
 
         const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
 
