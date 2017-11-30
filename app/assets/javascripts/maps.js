@@ -59,7 +59,7 @@ function drawMap(data) {
         const northwestBound = new google.maps.LatLng( northmostLatitude, eastmostLongitude );
 
         const clickedCountry = this.name;
-        let content = clickedCountry;
+        let content = `<h3>${ clickedCountry }</h3>`;
 
         // TODO: don't display more than 5 languages
         if ( countries[ clickedCountry ] ) {

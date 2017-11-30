@@ -1,17 +1,27 @@
 <h1><%= @language.name %></h1>
 
-<div>
-  <h2>Universal Declaration of human rights in <%= @language.name %>:</h2>
+<div class="col-md-4">
+  <h2>Universal Declaration of human rights in <%= @language.name %></h2>
   <%= @language.sample %>
 </div>
 
-<%= @nested_list.html_safe unless @nested_list.nil? %>
+<div class="col-md-8">
 
-<% @language.countries.each do |country| %>
-  <figure>
-    <img src="http://fillmurray.com/200/100">
-    <figcaption>
-      <%= link_to country.name, country %>
-    </figcaption>
-  </figure>
-<% end %>
+  <h2>Proto-Languages</h2>
+  <%= @nested_list.html_safe unless @nested_list.nil? %>
+
+  <h2>Official Language of:</h2>
+  <div class="official-languages">
+
+    <% @language.countries.each do |country| %>
+      <figure>
+        <img src="http://fillmurray.com/200/100">
+        <figcaption class="text-center">
+          <%= link_to country.name, country %>
+        </figcaption>
+      </figure>
+    <% end %>
+  
+  </div>
+
+</div>

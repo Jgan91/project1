@@ -10,17 +10,16 @@
 
   <body>
 
-    <div id="container">
+    <div class="container">
 
-      <nav>
+      <nav class="navbar navbar-expand-lg">
+        <%= link_to 'LanguageDB', root_path, :class => 'navbar-brand' %>
 
-        <%= flash[:error] %>
-
-        <%= link_to 'Home', root_path %>
-        <%= link_to 'Languages', languages_path %>
-        <%= link_to 'Countries', countries_path %>
-        <%= link_to 'Language Families', language_families_path %>
-        <%= link_to 'Writing Systems', writing_systems_path %>
+        <%= link_to 'Home', root_path, :class => 'navbar-text' %>
+        <%= link_to 'Languages', languages_path, :class => 'navbar-text' %>
+        <%= link_to 'Countries', countries_path, :class => 'navbar-text' %>
+        <%= link_to 'Language Families', language_families_path, :class => 'navbar-text' %>
+        <%= link_to 'Writing Systems', writing_systems_path, :class => 'navbar-text' %>
         <% if @current_user.present? %>
           <%= link_to 'Sign Out', login_path, :method => 'delete' %>
           <% if @current_user.admin? %>
@@ -31,7 +30,11 @@
             <%= link_to 'Add Language Family', new_language_family_path %>
           <% end %>
         <% end %>
+
       </nav>
+
+      <%= flash[:error] %>
+
       <%= yield %>
 
     </div>
