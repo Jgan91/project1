@@ -4,12 +4,12 @@
 
 <script>
   // TODO: change vanilla javascript to jQuery
-  let countries = <%= @countries.html_safe %>;
+  var countries = <%= @countries.html_safe %>;
   const currentUserPresent = <%= @current_user.present? %>;
 
   console.log( countries );
 
-  let map;
+  var map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 30, lng: 20},
