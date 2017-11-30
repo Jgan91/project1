@@ -1,6 +1,8 @@
 class WritingSystemsController < ApplicationController
+  before_action :check_if_admin, :only => [:new, :edit]
+
   def index
-    @writing_systems = WritingSystem.all
+    @writing_systems = WritingSystem.order :name
   end
 
   def new

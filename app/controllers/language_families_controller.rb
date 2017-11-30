@@ -1,6 +1,8 @@
 class LanguageFamiliesController < ApplicationController
+  before_action :check_if_admin, :only => [:new, :edit]
+
   def index
-    @language_families = LanguageFamily.all
+    @language_families = LanguageFamily.order :name
   end
 
   def new

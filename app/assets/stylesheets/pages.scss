@@ -8,8 +8,14 @@
 
 #map {
   height: 600px;
+  opacity: 0.95;
 }
 
 a.map.language {
   display: block;
+}
+
+html {
+  background-image: image-url("background.jpg");
+  background-size: cover;
 }

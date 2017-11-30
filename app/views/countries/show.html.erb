@@ -1,4 +1,45 @@
 <h1><%= @country.name %></h1>
 
-<%= link_to 'Edit Country', edit_country_path %>
-<%= button_to('Delete Country', @country, :method => 'delete', :data => { :confirm => 'Are you sure?' }) %>
+<div id="map"></div>
+
+<script>
+  // TODO: change vanilla javascript to jQuery
+  let country = '<%= @country.name %>';
+  let countries = <%= @countries.html_safe %>;
+  const currentUserPresent = <%= @current_user.present? %>;
+
+
+  console.log( countries );
+
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 30, lng: 20},
+      zoom: 3
+    });
+
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address' : country }, function( results, status ) {
+      if ( status === google.maps.GeocoderStatus.OK ) {
+        map.setCenter( results[ 0 ].geometry.location );
+      }
+    });
+  }
+
+  // Initialize JSONP request
+  const script = document.createElement('script');
+  const url = ['https://www.googleapis.com/fusiontables/v1/query?'];
+  url.push('sql=');
+  const query = 'SELECT name, kml_4326 FROM ' +
+      '1foc3xO9DyfSIF6ofvN0kp2bxSfSeKog5FbdWdQ';
+  const encodedQuery = encodeURIComponent(query);
+  url.push(encodedQuery);
+  url.push('&callback=drawMap');
+  url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
+  script.src = url.join('');
+  const body = document.getElementsByTagName('body')[0];
+  body.appendChild(script);
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABDM6jpfKy3YA3F25pB0zMUg6QBNCk-0A&callback=initMap"
+async defer></script>

@@ -1,6 +1,8 @@
 class CountriesController < ApplicationController
+  before_action :check_if_admin, :only => [:new, :edit]
+
   def index
-    @countries = Country.all
+    @countries = Country.order :name
   end
 
   def new
@@ -28,6 +30,7 @@ class CountriesController < ApplicationController
 
   def show
     @country = Country.find params[:id]
+    @countries = Country.nice_json
   end
 
   def destroy
