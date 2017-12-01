@@ -1,24 +1,30 @@
-# README
+# Official Language Map
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Official Language Map is an interactive map that displays the official languages of a clicked country.
 
-Things you may want to cover:
+Link: https://project1-languagedb.herokuapp.com/
 
-* Ruby version
+## Built With
 
-* System dependencies
+* HTML5
+* CSS3
+* ES6
+* Ruby on Rails
+* Google Maps API
+* Hosted on Heroku
 
-* Configuration
+## What I Learnt
 
-* Database creation
+* Implementation of self-join tables in ActiveRecord
+* How to use the asset pipeline to separate Javascript from views
+* Deployment via Heroku
 
-* Database initialization
+## TODO
 
-* How to run the test suite
+* Implement a wikipedia edit/authorise information contribution system
+* Use webscraping to populate the database
+* Add file upload for image uploads of country flags
 
-* Services (job queues, cache servers, search engines, etc.)
+## Acknowledgments
 
-* Deployment instructions
-
-* ...
+* Google Maps API
